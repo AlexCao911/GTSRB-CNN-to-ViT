@@ -8,17 +8,20 @@ A comprehensive implementation and comparison of landmark CNN architectures for 
 
 ## 📋 Table of Contents
 
-- [Overview](##overview)
-- [Dataset](#dataset)
-- [Model Architectures](#model-architectures)
-- [Historical Context](#historical-context)
-- [Performance Comparison](#performance-comparison)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Results](#results)
-- [Key Insights](#key-insights)
-- [Project Structure](#project-structure)
-- [References](#references)
+- [Overview](#-overview)
+- [Dataset](#-dataset)
+- [Model Architectures](#-model-architectures)
+- [Historical Context](#-historical-context-evolution-of-cnn-architectures)
+- [Performance Comparison](#-performance-comparison)
+- [Task-Specific Optimizations](#-task-specific-optimizations)
+- [Installation](#-installation)
+- [Usage](#-usage)
+- [Key Insights](#-key-insights)
+- [Project Structure](#-project-structure)
+- [Experimental Results](#-experimental-results)
+- [Learning Resources](#-learning-resources)
+- [Contributing](#-contributing)
+- [License](#-license)
 
 ## 🎯 Overview
 
