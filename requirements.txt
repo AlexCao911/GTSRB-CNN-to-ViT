@@ -1,3 +1,9 @@
 opencv-python
 scikit-learn
 tensorflow
+
+# Visualization tools (optional)
+visualkeras
+pillow
+pydot
+graphviz
