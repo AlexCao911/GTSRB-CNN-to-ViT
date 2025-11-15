@@ -1,0 +1,56 @@
+# =================================
+# Git Ignore for Python Projects
+# =================================
+
+# Trained Models
+# Ignore all HDF5 files (Keras models).
+*.h5
+
+# Dataset
+# Ignore GTSRB dataset (too large for GitHub)
+gtsrb/
+
+# Byte-compiled / optimized / C extensions
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual Environments
+venv/
+env/
+.venv/
+ENV/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Operating System files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE configuration files
+.idea/
+.vscode/
+*.iml
