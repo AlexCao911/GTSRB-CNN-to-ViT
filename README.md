@@ -8,7 +8,7 @@ A comprehensive implementation and comparison of landmark CNN architectures for 
 
 ## 📋 Table of Contents
 
-- [Overview](#overview)
+- [Overview](##overview)
 - [Dataset](#dataset)
 - [Model Architectures](#model-architectures)
 - [Historical Context](#historical-context)
@@ -57,15 +57,6 @@ gtsrb/
 ```
 
 ## 🏗️ Model Architectures
-
-> 📖 **For detailed architecture visualizations with in-depth diagrams, see [DETAILED_ARCHITECTURES.md](DETAILED_ARCHITECTURES.md)**
->
-> This section provides overview diagrams. The detailed document includes:
->
-> - Complete Inception module breakdown with parameter calculations
-> - Residual block mechanics and gradient flow analysis
-> - Self-attention mechanism step-by-step walkthrough
-> - Comparative analysis of why each architecture performs as it does
 
 ### Version 1: Basic CNN (LeNet-inspired)
 
