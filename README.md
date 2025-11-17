@@ -14,7 +14,6 @@
   <em>Implementation and comparison of 5 CNN architectures (LeNet, AlexNet, VGG, GoogLeNet, ResNet) and Vision Transformer (attention-based) for German traffic sign classification</em>
 </p>
 
----
 
 ## 📋 Table of Contents
 
@@ -26,7 +25,6 @@
 - [Learning Resources](#-learning-resources)
 - [License & Citation](#-license--citation)
 
----
 
 ## 🎯 Overview
 
@@ -41,9 +39,6 @@ This project implements and compares **6 landmark neural network architectures**
 
 **Key Finding:** AlexNet (2012) achieves **99.5% accuracy** (highest), while Vision Transformer (2020) only reaches **92.6%** — demonstrating that **newer ≠ better** when data is limited.
 
----
-
----
 
 ## 📊 Dataset
 
@@ -72,14 +67,13 @@ This project implements and compares **6 landmark neural network architectures**
 
 | Model              | Year | Params | Accuracy | Speed      | Best For           |
 | ------------------ | ---- | ------ | -------- | ---------- | ------------------ |
-| **V1: LeNet**      | 1998 | 809K   | 96.9%    | ⚡⚡⚡⚡⚡ | Prototyping        |
-| **V2: AlexNet** ⭐ | 2012 | 612K   | 99.5%    | ⚡⚡⚡⚡   | **Best Accuracy**  |
-| **V3: VGG**        | 2014 | 1.0M   | 99.3%    | ⚡⚡⚡     | High Accuracy      |
+| **V1: LeNet <- ReLU, MaxPooling, Drop out**      | 1998 | 809K   | 96.9%    | ⚡⚡⚡⚡⚡ | Prototyping        |
+| **V2: AlexNet <- 3x3 kernel, CONV blocks, Drop out** ⭐ | 2012 | 612K   | 99.5%    | ⚡⚡⚡⚡   | **Best Accuracy**  |
+| **V3: VGG <- Batch Normalization**        | 2014 | 1.0M   | 99.3%    | ⚡⚡⚡     | High Accuracy      |
 | **V4: GoogLeNet**  | 2014 | 148K   | 95.8%    | ⚡⚡⚡⚡   | **Most Efficient** |
 | **V5: ResNet**     | 2015 | 744K   | 95.7%    | ⚡⚡⚡     | Production         |
 | **V6: ViT**        | 2020 | 160K   | 92.6%    | ⚡⚡       | Research           |
 
----
 
 ### V1: Basic CNN (LeNet-inspired)
 
@@ -113,7 +107,7 @@ Total                                      809,387     100%
 
 #### Training Results
 
-![V1 Training](assetstraining/v1_training.png)
+![V1 Training](assets/training/v1_training.png)
 
 #### Reference Architecture: LeNet-5 (1998)
 
@@ -137,7 +131,6 @@ Total                                      809,387     100%
 
 </details>
 
----
 
 ### V2: Improved CNN (AlexNet-inspired)
 
@@ -205,7 +198,6 @@ Total                                      612,427     100%
 
 </details>
 
----
 
 ### V3: VGG-style Deep Network
 
@@ -230,32 +222,38 @@ Input → [Conv(32)×2+BN → Pool]×3 → Dense(512) → Dense(256) → Dense(4
 ```
 Layer                    Output Shape      Params      % of Total
 ─────────────────────────────────────────────────────────────────
-conv2d                   (30, 30, 32)      896         0.1%
-batch_normalization      (30, 30, 32)      128         0.0%
-conv2d_1                 (30, 30, 32)      9,248       0.9%
-batch_normalization_1    (30, 30, 32)      128         0.0%
+                     Block_1(Filters: 32)
+conv2d_1-1               (30, 30, 32)      896         0.1%
+batch_normalization_1-1  (30, 30, 32)      128         0.0%
+conv2d_1-2               (30, 30, 32)      9,248       0.9%
+batch_normalization_1-2  (30, 30, 32)      128         0.0%
 max_pooling2d            (15, 15, 32)      0           0.0%
 dropout                  (15, 15, 32)      0           0.0%
-conv2d_2                 (15, 15, 64)      18,496      1.8%
-batch_normalization_2    (15, 15, 64)      256         0.0%
-conv2d_3                 (15, 15, 64)      36,928      3.6%
-batch_normalization_3    (15, 15, 64)      256         0.0%
-max_pooling2d_1          (7, 7, 64)        0           0.0%
-dropout_1                (7, 7, 64)        0           0.0%
-conv2d_4                 (7, 7, 128)       73,856      7.2%
-batch_normalization_4    (7, 7, 128)       512         0.1%
-conv2d_5                 (7, 7, 128)       147,584     14.4%
-batch_normalization_5    (7, 7, 128)       512         0.1%
-max_pooling2d_2          (3, 3, 128)       0           0.0%
-dropout_2                (3, 3, 128)       0           0.0%
+
+                     Block_2(Filters: 64)
+conv2d_2-1               (15, 15, 64)      18,496      1.8%
+batch_normalization_2-1  (15, 15, 64)      256         0.0%
+conv2d_2-2               (15, 15, 64)      36,928      3.6%
+batch_normalization_2-2  (15, 15, 64)      256         0.0%
+max_pooling2d            (7, 7, 64)        0           0.0%
+dropout                  (7, 7, 64)        0           0.0%
+
+                     Block_3(Filters: 128)
+conv2d_3-1               (7, 7, 128)       73,856      7.2%
+batch_normalization_3-1  (7, 7, 128)       512         0.1%
+conv2d_3-2               (7, 7, 128)       147,584     14.4%
+batch_normalization_3-2  (7, 7, 128)       512         0.1%
+max_pooling2d            (3, 3, 128)       0           0.0%
+dropout                  (3, 3, 128)       0           0.0%
+
 flatten                  (1152)            0           0.0%
 dense                    (512)             590,336     57.6%  ← Largest
-batch_normalization_6    (512)             2,048       0.2%
-dropout_3                (512)             0           0.0%
-dense_1                  (256)             131,328     12.8%
-batch_normalization_7    (256)             1,024       0.1%
-dropout_4                (256)             0           0.0%
-dense_2 (Output)         (43)              11,051      1.1%
+batch_normalization      (512)             2,048       0.2%
+dropout.                 (512)             0           0.0%
+dense                    (256)             131,328     12.8%
+batch_normalization      (256)             1,024       0.1%
+dropout.                 (256)             0           0.0%
+dense (Output)           (43)              11,051      1.1%
 ─────────────────────────────────────────────────────────────────
 Total                                      1,024,587   100%
 ```
@@ -295,7 +293,6 @@ Total                                      1,024,587   100%
 
 </details>
 
----
 
 ### V4: GoogLeNet/Inception-style
 
@@ -416,9 +413,8 @@ Total: 8,576 parameters (61% reduction!)
 
 </details>
 
----
 
-### V5: ResNet-style ⭐ **RECOMMENDED**
+### V5: ResNet-style ⭐ 
 
 <details>
 <summary><b>Click to expand</b></summary>
@@ -543,7 +539,6 @@ Layer 1: Still has strong gradient!
 
 </details>
 
----
 
 ### V6: Vision Transformer
 
@@ -673,7 +668,6 @@ Problem: Fewer patches = less spatial information
 
 </details>
 
----
 
 ## 💻 Usage
 
@@ -722,16 +716,6 @@ python3 traffic/traffic_v5_resnet.py gtsrb model_v5.h5
 
 ```bash
 make clean  # Remove all .h5 files and cache
-```
-
-### Generate Architecture Diagrams
-
-```bash
-# Standard Keras diagrams
-python generate_diagrams.py
-
-# Professional LaTeX diagrams (requires LaTeX)
-./generate_professional_diagrams.sh
 ```
 
 ---
@@ -799,7 +783,6 @@ Original architectures designed for 224×224 images. Our adaptations for 30×30:
 - 2-minute training
 - Quick validation
 
----
 
 ## 📚 Learning Resources
 
@@ -834,7 +817,6 @@ Original architectures designed for 224×224 images. Our adaptations for 30×30:
 - **Deep Learning Book:** [Goodfellow, Bengio, Courville](https://www.deeplearningbook.org/)
 - **Dive into Deep Learning:** [d2l.ai](https://d2l.ai/)
 
----
 
 ## 📁 Project Structure
 
@@ -866,7 +848,6 @@ GTSRB-CNN-to-ViT/
     └── architecture_diagrams_latex/  # LaTeX diagrams
 ```
 
----
 
 ## 📝 License & Citation
 
