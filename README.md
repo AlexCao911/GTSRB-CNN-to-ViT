@@ -2098,7 +2098,6 @@ LeNet → AlexNet → VGG → GoogLeNet → ResNet → ViT
 ```
 traffic-sign-recognition/
 ├── README.md                          # Main documentation
-├── DETAILED_ARCHITECTURES.md          # In-depth architecture visualizations
 ├── requirements.txt                   # Python dependencies
 ├── .gitignore                        # Git ignore rules
 ├── makefile                          # Build automation (optional)
@@ -2113,8 +2112,7 @@ traffic-sign-recognition/
 │   ├── traffic_v3_vgg.py            # V3: VGG-style deep network
 │   ├── traffic_v4_googlenet.py      # V4: GoogLeNet/Inception-style
 │   ├── traffic_v5_resnet.py         # V5: ResNet with residual connections
-│   ├── traffic_v6_vit.py            # V6: Vision Transformer
-│   └── ARCHITECTURE_COMPARISON.md   # Architecture comparison document
+│   └──  traffic_v6_vit.py            # V6: Vision Transformer
 │
 ├── gtsrb/                            # Dataset directory
 │   ├── 0/                            # Class 0: Speed limit (20km/h)
@@ -2291,7 +2289,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For questions, suggestions, or discussions:
 
-- **Issues**: [GitHub Issues](https://github.com/yourusername/traffic-sign-recognition/issues)
+- **Issues**: [GitHub Issues](https://github.com/AlexCao911/GTSRB-CNN-to-ViT/issues)
 - **Email**: alexcao911@outlook.com
 
 ## 🌟 Citation
@@ -2300,11 +2298,10 @@ If you use this project in your research or work, please cite:
 
 ```bibtex
 @misc{traffic-sign-recognition,
-  author = {Your Name},
+  author = {Alex Cou},
   title = {Traffic Sign Recognition: A Journey Through CNN Architectures},
-  year = {2024},
-  publisher = {GitHub},
-  url = {https://github.com/yourusername/traffic-sign-recognition}
+  year = {2025},
+  url = {https://github.com/AlexCao911/GTSRB-CNN-to-ViT}
 }
 ```
 
