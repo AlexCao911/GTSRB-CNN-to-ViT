@@ -2292,8 +2292,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 For questions, suggestions, or discussions:
 
 - **Issues**: [GitHub Issues](https://github.com/yourusername/traffic-sign-recognition/issues)
-- **Email**: your.email@example.com
-- **Twitter**: [@yourhandle](https://twitter.com/yourhandle)
+- **Email**: alexcao911@outlook.com
 
 ## 🌟 Citation
 
