@@ -8,6 +8,7 @@
 #   make train-v3-vgg 		- Train the VGG-style model (saves as model_v3.h5).
 #   make train-v4-gln 		- Train the GoogLeNet-style model (saves as model_v4.h5).
 #   make train-v5-res 		- Train the ResNet-style model (saves as model_v5.h5).
+#   make train-v6-vit 		- Train the Vision Transformer model (saves as model_v6.h5).
 #   make clean        		- Remove all generated model files and cache folders.
 # ==============================================================================
 
@@ -21,20 +22,22 @@ V2_SCRIPT = traffic/traffic_v2_advanced.py
 V3_SCRIPT = traffic/traffic_v3_vgg.py
 V4_SCRIPT = traffic/traffic_v4_googlenet.py
 V5_SCRIPT = traffic/traffic_v5_resnet.py
+V6_SCRIPT = traffic/traffic_v6_vit.py
 
 V1_MODEL = model_v1.h5
 V2_MODEL = model_v2.h5
 V3_MODEL = model_v3.h5
 V4_MODEL = model_v4.h5
 V5_MODEL = model_v5.h5
+V6_MODEL = model_v6.h5
 
 # --- Phony Targets (commands that don't produce a file with the same name) ---
-.PHONY: all clean train-v1-basic train-v2-advanced train-v3-vgg train-v4-gln train-v5-res
+.PHONY: all clean train-v1-basic train-v2-advanced train-v3-vgg train-v4-gln train-v5-res train-v6-vit
 
 # --- Main Targets ---
 
 # Default target: train all models
-all: $(V1_MODEL) $(V2_MODEL) $(V3_MODEL) $(V4_MODEL) $(V5_MODEL)
+all: $(V1_MODEL) $(V2_MODEL) $(V3_MODEL) $(V4_MODEL) $(V5_MODEL) $(V6_MODEL)
 
 # ==================================================================================
 # --- Model Training Rules ---
@@ -62,6 +65,10 @@ $(V4_MODEL): $(V4_SCRIPT)
 $(V5_MODEL): $(V5_SCRIPT)
 	@echo "--- Training ResNet-Style Model (v5) -> $(V5_MODEL) ---"
 	$(PYTHON) $(V5_SCRIPT) $(DATA_DIR) $@
+
+$(V6_MODEL): $(V6_SCRIPT)
+	@echo "--- Training Vision Transformer Model (v6) -> $(V6_MODEL) ---"
+	$(PYTHON) $(V6_SCRIPT) $(DATA_DIR) $@
 # ==================================================================================
 
 # ==================================================================================
@@ -75,6 +82,7 @@ train-2-advanced: $(V2_MODEL)
 train-v3-vgg: $(V3_MODEL)
 train-v4-gln: $(V4_MODEL)
 train-v5-res: $(V5_MODEL)
+train-v6-vit: $(V6_MODEL)
 # ==================================================================================
 
 
@@ -82,7 +90,7 @@ train-v5-res: $(V5_MODEL)
 # --- Housekeeping ---
 clean:
 	@echo "Cleaning up generated files..."
-	@rm -f $(V1_MODEL) $(V2_MODEL) $(V3_MODEL) $(V4_MODEL) $(V5_MODEL)
+	@rm -f $(V1_MODEL) $(V2_MODEL) $(V3_MODEL) $(V4_MODEL) $(V5_MODEL) $(V6_MODEL)
 	@find . -type d -name "__pycache__" -exec rm -r {} +
 	@echo "Cleanup complete."
 # ==================================================================================
