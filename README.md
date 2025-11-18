@@ -418,7 +418,7 @@ Total: 8,576 parameters (61% reduction!)
 #### Architecture Diagram
 
 ![V5 Architecture](assets/architecture/stride.png) 
-(assets/architecture/1x1conv.png)
+![conv](assets/architecture/1x1conv.png)
 
 #### Architecture Flow
 
