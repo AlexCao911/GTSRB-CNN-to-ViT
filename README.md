@@ -33,7 +33,7 @@ This project reconstructs the evolution of Computer Vision through six architect
 - **v2 (AlexNet-style)** adopts deep feature extraction but discards large 11x11 kernels in favor of efficient **3x3 filters** and replaces LRN(effect was found to be mediocre) with **Drop out**, also implements **CONV blocks(CONV->ReLU->CONV->ReLU->drop out-> max pooling)**, which reduce the numbers of params and expand the Receptive Field;
 - **v3 (VGG-style)** miniaturizes the deep structure into three uniform blocks but crucially adds **Batch Normalization** to ensure training stability, uses `padding = 'same'` to extract features without reducing sizes;
 - **v4 (GoogLeNet-style)** simplifies the massive original network into just **two Inception modules** with **Global Average Pooling** to maximize parameter efficiency, owing to BN and shallow network, **Auxiliary Classifiers** are removed;
-- **v5 (ResNet-style)** implements authentic residual learning with projection shortcuts but incorporates **Dropout**—absent in the original—to prevent overfitting on small datasets. We also implement `Conv->BN->ReLU->Conv->Bn->Add->ReLu` BasicBlocks, 1x1 Convolutional Projection and `Stride = 2 `; 
+- **v5 (ResNet-style)** implements authentic residual learning with projection shortcuts but incorporates **Dropout**—absent in the original—to prevent overfitting on small datasets. We also implement `Conv->BN->ReLU->Conv->Bn->Add->ReLu` BasicBlocks, `1x1 Convolutional Projection` and `Stride = 2 `; 
 - **v6 (Vision Transformer)** re-engineers ViT for low resolution by shrinking the standard 16x16 patch size to **5x5**, allowing the model to effectively learn global relationships on tiny images. 
 
 
@@ -78,7 +78,7 @@ This project reconstructs the evolution of Computer Vision through six architect
 
 #### Architecture Diagram
 
-![V1 Architecture](assets/v1_architecture.png)
+![V1 Architecture](assets/architecture/v1_architecture.png)
 
 #### Architecture Flow
 
@@ -135,7 +135,7 @@ Total                                      809,387     100%
 
 #### Architecture Diagram
 
-![V2 Architecture](assets/v2_architecture.png)
+![V2 Architecture](assets/architecture/v2_architecture.png)
 
 #### Architecture Flow
 
@@ -202,7 +202,7 @@ Total                                      612,427     100%
 
 #### Architecture Diagram
 
-![V3 Architecture](assets/v3_architecture.png)
+![V3 Architecture](assets/architecture/vgg_block_1.png)
 
 #### Architecture Flow
 
@@ -297,7 +297,7 @@ Total                                      1,024,587   100%
 
 #### Architecture Diagram
 
-![V4 Architecture](assets/v4_architecture.png)
+![V4 Architecture](assets/architecture/googlenetBlock.png)
 
 #### Architecture Flow
 
@@ -417,7 +417,8 @@ Total: 8,576 parameters (61% reduction!)
 
 #### Architecture Diagram
 
-![V5 Architecture](assets/v5_architecture.png)
+![V5 Architecture](assets/architecture/stride.png) 
+(assets/architecture/1x1conv.png)
 
 #### Architecture Flow
 

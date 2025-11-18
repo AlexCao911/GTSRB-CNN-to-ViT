@@ -151,7 +151,7 @@ def get_model():
         ),
         tf.keras.layers.BatchNormalization(),
         tf.keras.layers.Conv2D(32, (3, 3), activation="relu", padding="same"),
-        tf.keras.layers.BatchNormalization(),
+        tf.keras.layers.BatchNormalization(), # normalize -> more stable and faster 
         tf.keras.layers.MaxPooling2D(pool_size=(2, 2)),
         tf.keras.layers.Dropout(0.25),
         
