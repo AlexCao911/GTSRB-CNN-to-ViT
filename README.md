@@ -28,16 +28,13 @@
 
 ## 🎯 Overview
 
-This project implements and compares **6 landmark neural network architectures** spanning 22 years of deep learning evolution (1998-2020) on the German Traffic Sign Recognition Benchmark (GTSRB).
-
-**What makes this project unique:**
-
-- ✅ All models optimized for **30×30 pixel images** (not 224×224)
-- ✅ Trained on **limited data** (~26K images, not millions)
-- ✅ Direct comparison: CNNs vs Transformers
-- ✅ Production-ready implementations with detailed documentation
-
-**Key Finding:** AlexNet (2012) achieves **99.5% accuracy** (highest), while Vision Transformer (2020) only reaches **92.6%** — demonstrating that **newer ≠ better** when data is limited.
+This project reconstructs the evolution of Computer Vision through six architectures, specifically adapted for small-scale inputs (30x30): 
+- **v1 (LeNet-style)** modernizes the classic baseline by replacing the original Sigmoid activations and Average Pooling with **ReLU and MaxPooling(which is good at saving features and edges)**. And we also use **drop out** to prevent overfiting;
+- **v2 (AlexNet-style)** adopts deep feature extraction but discards large 11x11 kernels in favor of efficient **3x3 filters** and replaces LRN(effect was found to be mediocre) with **Drop out**, also implements **CONV blocks(CONV->ReLU->CONV->ReLU->drop out-> max pooling)**, which reduce the numbers of params and expand the Receptive Field;
+- **v3 (VGG-style)** miniaturizes the deep structure into three uniform blocks but crucially adds **Batch Normalization** to ensure training stability, uses `padding = 'same'` to extract features without reducing sizes;
+- **v4 (GoogLeNet-style)** simplifies the massive original network into just **two Inception modules** with **Global Average Pooling** to maximize parameter efficiency, owing to BN and shallow network, the **Auxiliary Classifiers** is removed;
+- **v5 (ResNet-style)** implements authentic residual  learning with projection shortcuts but incorporates **Dropout**—absent in the original—to prevent overfitting on small datasets; 
+- **v6 (Vision Transformer)** re-engineers ViT for low resolution by shrinking the standard 16x16 patch size to **5x5**, allowing the model to effectively learn global relationships on tiny images.
 
 
 ## 📊 Dataset
@@ -59,20 +56,19 @@ This project implements and compares **6 landmark neural network architectures**
 - Training: 60% (~16,000 images)
 - Testing: 40% (~10,600 images)
 
----
 
 ## 🏗️ Models
 
 ### Quick Comparison
 
-| Model              | Year | Params | Accuracy | Speed      | Best For           |
-| ------------------ | ---- | ------ | -------- | ---------- | ------------------ |
-| **V1: LeNet <- ReLU, MaxPooling, Drop out**      | 1998 | 809K   | 96.9%    | ⚡⚡⚡⚡⚡ | Prototyping        |
-| **V2: AlexNet <- 3x3 kernel, CONV blocks, Drop out** ⭐ | 2012 | 612K   | 99.5%    | ⚡⚡⚡⚡   | **Best Accuracy**  |
-| **V3: VGG <- Batch Normalization**        | 2014 | 1.0M   | 99.3%    | ⚡⚡⚡     | High Accuracy      |
-| **V4: GoogLeNet**  | 2014 | 148K   | 95.8%    | ⚡⚡⚡⚡   | **Most Efficient** |
-| **V5: ResNet**     | 2015 | 744K   | 95.7%    | ⚡⚡⚡     | Production         |
-| **V6: ViT**        | 2020 | 160K   | 92.6%    | ⚡⚡       | Research           |
+| Model              | Year | Params | Accuracy | 
+| ------------------ | ---- | ------ | -------- | 
+| **V1: LeNet <- ReLU, MaxPooling, Drop out**      | 1998 | 809K   | 96.9%    | 
+| **V2: AlexNet <- 3x3 kernel, CONV blocks, Drop out** ⭐ | 2012 | 612K   | 99.5%    | 
+| **V3: VGG <- Batch Normalization**        | 2014 | 1.0M   | 99.3%    |
+| **V4: GoogLeNet**  | 2014 | 148K   | 95.8%    | 
+| **V5: ResNet**     | 2015 | 744K   | 95.7%    | 
+| **V6: ViT**        | 2020 | 160K   | 92.6%    | 
 
 
 ### V1: Basic CNN (LeNet-inspired)
@@ -718,7 +714,6 @@ python3 traffic/traffic_v5_resnet.py gtsrb model_v5.h5
 make clean  # Remove all .h5 files and cache
 ```
 
----
 
 ## 💡 Key Insights
 
@@ -742,47 +737,8 @@ ResNet (2015)   → Skip connections = Very deep networks ⭐
 ViT (2020)      → Attention = No convolutions (with enough data)
 ```
 
-### 3. Task-Specific Optimization
-
-Original architectures designed for 224×224 images. Our adaptations for 30×30:
-
-- ✅ Fewer stages (3 vs 5)
-- ✅ Smaller filters
-- ✅ Added regularization (Dropout, BatchNorm)
-- ✅ 99% parameter reduction while maintaining performance
-
-### 4. When to Use Which Model
-
-**Production (Best Accuracy):** V2 (AlexNet) ⭐
-
-- 99.5% accuracy (highest)
-- Fast training (~1.5 min)
-- Balanced complexity
-
-**High Accuracy Alternative:** V3 (VGG)
-
-- 99.3% accuracy
-- More parameters (1.0M)
-- Deeper architecture
-
-**Mobile/Edge (Most Efficient):** V4 (GoogLeNet)
-
-- 148K parameters (smallest)
-- 95.8% accuracy
-- Fast inference
-
-**Stable Training:** V5 (ResNet)
-
-- 95.7% accuracy
-- Skip connections prevent degradation
-- Well-tested architecture
-
-**Prototyping (Speed):** V1 (LeNet)
-
-- 96.9% accuracy
-- 2-minute training
-- Quick validation
-
+### 3. Limitation
+When classifying the little pictures and small data set, those CNNs implemented from scratch may have the best effect, however, when facing more complex classication tasks, it's supposed to take advantage of others‘ work like [End side] `moblieNet`, YOLO`, [Industral grade]`ConvNeXt`, `Swin Transformer`, `EfficientNet`, [Multi Model] `CLIP`, `DINOv2`... 
 
 ## 📚 Learning Resources
 
