@@ -32,9 +32,9 @@ This project reconstructs the evolution of Computer Vision through six architect
 - **v1 (LeNet-style)** modernizes the classic baseline by replacing the original Sigmoid activations and Average Pooling with **ReLU and MaxPooling(which is good at saving features and edges)**. And we also use **drop out** to prevent overfiting;
 - **v2 (AlexNet-style)** adopts deep feature extraction but discards large 11x11 kernels in favor of efficient **3x3 filters** and replaces LRN(effect was found to be mediocre) with **Drop out**, also implements **CONV blocks(CONV->ReLU->CONV->ReLU->drop out-> max pooling)**, which reduce the numbers of params and expand the Receptive Field;
 - **v3 (VGG-style)** miniaturizes the deep structure into three uniform blocks but crucially adds **Batch Normalization** to ensure training stability, uses `padding = 'same'` to extract features without reducing sizes;
-- **v4 (GoogLeNet-style)** simplifies the massive original network into just **two Inception modules** with **Global Average Pooling** to maximize parameter efficiency, owing to BN and shallow network, the **Auxiliary Classifiers** is removed;
-- **v5 (ResNet-style)** implements authentic residual  learning with projection shortcuts but incorporates **Dropout**—absent in the original—to prevent overfitting on small datasets; 
-- **v6 (Vision Transformer)** re-engineers ViT for low resolution by shrinking the standard 16x16 patch size to **5x5**, allowing the model to effectively learn global relationships on tiny images.
+- **v4 (GoogLeNet-style)** simplifies the massive original network into just **two Inception modules** with **Global Average Pooling** to maximize parameter efficiency, owing to BN and shallow network, **Auxiliary Classifiers** are removed;
+- **v5 (ResNet-style)** implements authentic residual learning with projection shortcuts but incorporates **Dropout**—absent in the original—to prevent overfitting on small datasets. We also implement `Conv->BN->ReLU->Conv->Bn->Add->ReLu` BasicBlocks, 1x1 Convolutional Projection and `Stride = 2 `; 
+- **v6 (Vision Transformer)** re-engineers ViT for low resolution by shrinking the standard 16x16 patch size to **5x5**, allowing the model to effectively learn global relationships on tiny images. 
 
 
 ## 📊 Dataset
@@ -66,9 +66,9 @@ This project reconstructs the evolution of Computer Vision through six architect
 | **V1: LeNet <- ReLU, MaxPooling, Drop out**      | 1998 | 809K   | 96.9%    | 
 | **V2: AlexNet <- 3x3 kernel, CONV blocks, Drop out** ⭐ | 2012 | 612K   | 99.5%    | 
 | **V3: VGG <- Batch Normalization**        | 2014 | 1.0M   | 99.3%    |
-| **V4: GoogLeNet**  | 2014 | 148K   | 95.8%    | 
-| **V5: ResNet**     | 2015 | 744K   | 95.7%    | 
-| **V6: ViT**        | 2020 | 160K   | 92.6%    | 
+| **V4: GoogLeNet <- GAP, Inception Module, no Auxidiary Classifiers**  | 2014 | 148K   | 95.8%    | 
+| **V5: ResNet <- basic blocks, stride**     | 2015 | 744K   | 95.7%    | 
+| **V6: ViT <- Pos Embed, low learning rate Adam**        | 2020 | 160K   | 92.6%    | 
 
 
 ### V1: Basic CNN (LeNet-inspired)
@@ -738,7 +738,7 @@ ViT (2020)      → Attention = No convolutions (with enough data)
 ```
 
 ### 3. Limitation
-When classifying the little pictures and small data set, those CNNs implemented from scratch may have the best effect, however, when facing more complex classication tasks, it's supposed to take advantage of others‘ work like [End side] `moblieNet`, YOLO`, [Industral grade]`ConvNeXt`, `Swin Transformer`, `EfficientNet`, [Multi Model] `CLIP`, `DINOv2`... 
+When classifying the little pictures and small data set, those CNNs implemented from scratch may have the best effect, however, when facing more complex classication tasks, it's supposed to take advantage of others‘ work like [End side] `moblieNet`, `YOLO`, [Industral grade]`ConvNeXt`, `Swin Transformer`, `EfficientNet`, [Multi Model] `CLIP`, `DINOv2`... 
 
 ## 📚 Learning Resources
 
@@ -783,6 +783,7 @@ GTSRB-CNN-to-ViT/
 ├── makefile                     # Build automation
 ├── LICENSE                      # MIT License
 │
+├── refactored/                  # Redactored versions
 ├── traffic/                     # Model implementations
 │   ├── traffic_v1_basic.py      # LeNet-inspired
 │   ├── traffic_v2_advanced.py   # AlexNet-inspired
@@ -793,7 +794,8 @@ GTSRB-CNN-to-ViT/
 │
 ├── utils/                       # Shared utilities
 │   ├── __init__.py
-│   └── load_data.py             # Data loading
+│   ├── load_data.py             # Data loading
+│   └── trainer.py               # Training loop
 │
 ├── gtsrb/                       # Dataset (not in repo)
 │   ├── 0/                       # Class 0 images
